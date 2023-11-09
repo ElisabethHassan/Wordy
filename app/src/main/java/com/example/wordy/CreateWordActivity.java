@@ -102,11 +102,11 @@ public class CreateWordActivity extends AppCompatActivity {
         save.setOnClickListener(saveListener);
 
         db = FirebaseDatabase.getInstance();
-        reference = db.getReference().child("words");
+        reference = db.getReference();
         //words in the database to begin with
-        reference.setValue("games");
-        reference.setValue("honey");
-        reference.setValue("ocean");
+        reference.child("words").setValue("games");
+        reference.child("words").setValue("honey");
+        reference.child("words").setValue("ocean");
         wordList.add("ocean");
         wordList.add("games");
         wordList.add("honey");
