@@ -4,5 +4,8 @@
     <string name="clear">Clear</string>
     <string name="enter">Enter</string>
     <string name="add_word">Add Word</string>
+    <string name="headline">Add a Word!</string>
+    <string name="word">Add a word like `games`</string>
+    <string name="save">Save</string>
     <string name="back">Back</string>
 </resources>

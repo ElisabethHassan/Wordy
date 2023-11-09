@@ -94,6 +94,7 @@
 
 
         <EditText
+            android:id="@+id/et_6"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -104,17 +105,7 @@
             android:textSize="50sp" />
 
         <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
+            android:id="@+id/et_7"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -126,6 +117,7 @@
             android:textSize="50sp" />
 
         <EditText
+            android:id="@+id/et_8"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -137,28 +129,7 @@
             android:textSize="50sp" />
 
         <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:textSize="50sp" />
-
-        <EditText
+            android:id="@+id/et_9"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -170,136 +141,7 @@
             android:textSize="50sp" />
 
         <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
+            android:id="@+id/et_10"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -312,6 +154,7 @@
 
 
         <EditText
+            android:id="@+id/et_11"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -322,17 +165,7 @@
             android:textSize="50sp" />
 
         <EditText
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:maxLength="1"
-            android:text=""
-            android:textSize="50sp" />
-
-        <EditText
+            android:id="@+id/et_12"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -344,6 +177,7 @@
             android:textSize="50sp" />
 
         <EditText
+            android:id="@+id/et_13"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -355,6 +189,197 @@
             android:textSize="50sp" />
 
         <EditText
+            android:id="@+id/et_14"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_15"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_16"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_17"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_18"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_19"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_20"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_21"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_22"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_23"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_24"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_25"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+
+        <EditText
+            android:id="@+id/et_26"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_27"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_28"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_29"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:maxLength="1"
+            android:text=""
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/et_30"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="4dp"
@@ -368,35 +393,43 @@
     </GridLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/enter_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/enter"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="615dp" />
+        app:layout_constraintEnd_toStartOf="@+id/button_addWord"
+        app:layout_constraintTop_toBottomOf="@+id/lightGrid" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/restart"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="659dp" />
+        app:layout_constraintEnd_toStartOf="@+id/button_clear"
+        app:layout_constraintTop_toBottomOf="@+id/lightGrid" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/clear"
-        tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="657dp" />
+        app:layout_constraintEnd_toStartOf="@+id/button_addWord"
+        app:layout_constraintTop_toBottomOf="@+id/enter_button" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/button_addWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="48dp"
         android:text="@string/add_word"
-        tools:layout_editor_absoluteX="242dp"
-        tools:layout_editor_absoluteY="653dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lightGrid" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
