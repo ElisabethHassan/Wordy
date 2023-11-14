@@ -40,7 +40,7 @@ public class CreateWordActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(CreateWordActivity.this, MainActivity.class );
-            intent.putExtra("word", randomWord(wordList));
+//            intent.putExtra("word", randomWord(wordList));
             startActivity(intent);
         }
     };
@@ -71,20 +71,16 @@ public class CreateWordActivity extends AppCompatActivity {
         }
     };
 
-    /**
-     * Randomizes the words that is returned for the game
-     * @param list
-     * @return Random word from database
-     */
-    public String randomWord(ArrayList list){
-        int rand_num;
-        String word = "hello";
-        if (wordList.size() != 0){
-            rand_num = rand.nextInt(list.size());
-            return list.get(rand_num).toString();
-        }
-        return word;
-    }
+
+//    public String randomWord(ArrayList list){
+//        int rand_num;
+//        String word = "hello";
+//        if (wordList.size() != 0){
+//            rand_num = rand.nextInt(list.size());
+//            return list.get(rand_num).toString();
+//        }
+//        return word;
+//    }
 
 
 
@@ -102,11 +98,11 @@ public class CreateWordActivity extends AppCompatActivity {
         save.setOnClickListener(saveListener);
 
         db = FirebaseDatabase.getInstance();
-        reference = db.getReference();
+        reference = db.getReference("words");
         //words in the database to begin with
-        reference.child("words").setValue("games");
-        reference.child("words").setValue("honey");
-        reference.child("words").setValue("ocean");
+        reference.setValue("games");
+        reference.setValue("honey");
+        reference.setValue("ocean");
         wordList.add("ocean");
         wordList.add("games");
         wordList.add("honey");

@@ -1,5 +1,6 @@
 package com.example.wordy;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,9 +13,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
-    private String word;
+    String word;
     Button addWordButton, restartButton, clearButton, enterButton;
     EditText edt1, edt2, edt3, edt4, edt5;
     EditText edt6, edt7, edt8, edt9, edt10;
@@ -22,58 +32,25 @@ public class MainActivity extends AppCompatActivity {
     EditText edt16, edt17, edt18, edt19, edt20;
     EditText edt21, edt22, edt23, edt24, edt25;
     EditText edt26, edt27, edt28, edt29, edt30;
+    ArrayList<String> wordList = new ArrayList<>();
+    Random rand = new Random();
+    FirebaseDatabase db;
+    DatabaseReference reference;
 
     View.OnClickListener restartListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            edt1.setText("");
-            edt2.setText("");
-            edt3.setText("");
-            edt4.setText("");
-            edt5.setText("");
-
-            edt6.setText("");
-            edt7.setText("");
-            edt8.setText("");
-            edt9.setText("");
-            edt10.setText("");
-
-            edt11.setText("");
-            edt12.setText("");
-            edt13.setText("");
-            edt14.setText("");
-            edt15.setText("");
-
-            edt16.setText("");
-            edt17.setText("");
-            edt18.setText("");
-            edt19.setText("");
-            edt20.setText("");
-
-            edt21.setText("");
-            edt22.setText("");
-            edt23.setText("");
-            edt24.setText("");
-            edt25.setText("");
-
-            edt26.setText("");
-            edt27.setText("");
-            edt28.setText("");
-            edt29.setText("");
-            edt30.setText("");
-
+            clear();
+            restart();
+            makeGameStart();
+            onRestart();
         }
     };
 
-    //TODO: FIX THIS !!
     View.OnClickListener clearListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            edt1.setText("");
-            edt2.setText("");
-            edt3.setText("");
-            edt4.setText("");
-            edt5.setText("");
+            clear();
         }
     };
 
@@ -89,81 +66,22 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener enterListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//            edt1.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//
-//                @Override
-//                public void onTextChanged(CharSequence s, int start, int before, int count) {}
-//
-//                @Override
-//                public void afterTextChanged(Editable s) {
-//                    if (s.length() == 1) {
-//                        edt2.requestFocus();
-//                    }
-//                }
-//            });
-            edt5.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {}
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (s.length() == 1){
-                        validateRow(edt1, edt2, edt3, edt4, edt5);
-                    }
 
-                }
-            });
-
+            if (edt5.length() == 1)  validateRow(edt1, edt2, edt3, edt4, edt5);
+            if (edt10.length() == 1) validateRow(edt6, edt7, edt8, edt9, edt10);
+            if (edt15.length() == 1) validateRow(edt11, edt12, edt13, edt14, edt15);
+            if (edt20.length() == 1) validateRow(edt16, edt17, edt18, edt19, edt20);
+            if (edt25.length() == 1) validateRow(edt21, edt22, edt23, edt24, edt25);
+            if (edt30.length() == 1) validateRow(edt26, edt27, edt28, edt29, edt30);
         }
     };
 
-    //TODO: FIX THIS CODE
-    private void makeGameStop(){
-        edt1.setEnabled(false);
-        edt2.setEnabled(false);
-        edt3.setEnabled(false);
-        edt4.setEnabled(false);
-        edt5.setEnabled(false);
-
-
-        edt6.setEnabled(false);
-        edt7.setEnabled(false);
-        edt8.setEnabled(false);
-        edt9.setEnabled(false);
-        edt10.setEnabled(false);
-
-        edt11.setEnabled(false);
-        edt12.setEnabled(false);
-        edt13.setEnabled(false);
-        edt14.setEnabled(false);
-        edt15.setEnabled(false);
-
-        edt16.setEnabled(false);
-        edt17.setEnabled(false);
-        edt18.setEnabled(false);
-        edt19.setEnabled(false);
-        edt20.setEnabled(false);
-
-        edt21.setEnabled(false);
-        edt22.setEnabled(false);
-        edt23.setEnabled(false);
-        edt24.setEnabled(false);
-        edt25.setEnabled(false);
-
-        edt26.setEnabled(false);
-        edt27.setEnabled(false);
-        edt28.setEnabled(false);
-        edt29.setEnabled(false);
-        edt30.setEnabled(false);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        word = randomWord(wordList).toUpperCase();
         addWordButton = findViewById(R.id.button_addWord);
         restartButton = findViewById(R.id.button_restart);
         clearButton = findViewById(R.id.button_clear);
@@ -203,20 +121,48 @@ public class MainActivity extends AppCompatActivity {
         edt28 = findViewById(R.id.et_28);
         edt29 = findViewById(R.id.et_29);
         edt30 = findViewById(R.id.et_30);
-        
+
+        db = FirebaseDatabase.getInstance();
+        reference = db.getReference("words");
+        //words in the database to begin with
+        reference.setValue("games");
+        reference.setValue("honey");
+        reference.setValue("ocean");
+        wordList.add("ocean");
+        wordList.add("games");
+        wordList.add("honey");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    String word = dataSnapshot.getValue(String.class);
+                    wordList.add(word);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         addWordButton.setOnClickListener(addWordListener);
         Toast.makeText(this, "Connection was successful", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), word, Toast.LENGTH_LONG).show();
         enterButton.setOnClickListener(enterListener);
         clearButton.setOnClickListener(clearListener);
         restartButton.setOnClickListener(restartListener);
+
+
     }
 
 
 
     public void validateRow(EditText et1,EditText et2, EditText et3, EditText et4, EditText et5){
-        Intent intent = getIntent();
-        word = intent.getStringExtra("word").toUpperCase();
+//        Intent intent = getIntent();
+//        word = intent.getStringExtra("word").toString().toUpperCase();
+
 
         char editText1 = et1.getText().toString().toUpperCase().charAt(0);
         char editText2 = et2.getText().toString().toUpperCase().charAt(0);
@@ -300,6 +246,178 @@ public class MainActivity extends AppCompatActivity {
             makeGameStop();
         }
 
-
     }
+
+
+    public void clear(){
+        edt1.setText("");
+        edt2.setText("");
+        edt3.setText("");
+        edt4.setText("");
+        edt5.setText("");
+
+        edt6.setText("");
+        edt7.setText("");
+        edt8.setText("");
+        edt9.setText("");
+        edt10.setText("");
+
+        edt11.setText("");
+        edt12.setText("");
+        edt13.setText("");
+        edt14.setText("");
+        edt15.setText("");
+
+        edt16.setText("");
+        edt17.setText("");
+        edt18.setText("");
+        edt19.setText("");
+        edt20.setText("");
+
+        edt21.setText("");
+        edt22.setText("");
+        edt23.setText("");
+        edt24.setText("");
+        edt25.setText("");
+
+        edt26.setText("");
+        edt27.setText("");
+        edt28.setText("");
+        edt29.setText("");
+        edt30.setText("");
+    }
+
+    public void restart(){
+        edt1.setBackground(getDrawable(R.drawable.border));
+        edt2.setBackground(getDrawable(R.drawable.border));
+        edt3.setBackground(getDrawable(R.drawable.border));
+        edt4.setBackground(getDrawable(R.drawable.border));
+        edt5.setBackground(getDrawable(R.drawable.border));
+
+
+        edt6.setBackground(getDrawable(R.drawable.border));
+        edt7.setText("");
+        edt8.setText("");
+        edt9.setText("");
+        edt10.setText("");
+
+        edt11.setText("");
+        edt12.setText("");
+        edt13.setText("");
+        edt14.setText("");
+        edt15.setText("");
+
+        edt16.setText("");
+        edt17.setText("");
+        edt18.setText("");
+        edt19.setText("");
+        edt20.setText("");
+
+        edt21.setText("");
+        edt22.setText("");
+        edt23.setText("");
+        edt24.setText("");
+        edt25.setText("");
+
+        edt26.setText("");
+        edt27.setText("");
+        edt28.setText("");
+        edt29.setText("");
+        edt30.setText("");
+    }
+
+    //TODO: FIX THIS CODE
+    private void makeGameStart(){
+        edt1.setEnabled(true);
+        edt2.setEnabled(true);
+        edt3.setEnabled(true);
+        edt4.setEnabled(true);
+        edt5.setEnabled(true);
+
+
+        edt6.setEnabled(true);
+        edt7.setEnabled(true);
+        edt8.setEnabled(true);
+        edt9.setEnabled(true);
+        edt10.setEnabled(true);
+
+        edt11.setEnabled(true);
+        edt12.setEnabled(true);
+        edt13.setEnabled(true);
+        edt14.setEnabled(true);
+        edt15.setEnabled(true);
+
+        edt16.setEnabled(true);
+        edt17.setEnabled(true);
+        edt18.setEnabled(true);
+        edt19.setEnabled(true);
+        edt20.setEnabled(true);
+
+        edt21.setEnabled(true);
+        edt22.setEnabled(true);
+        edt23.setEnabled(true);
+        edt24.setEnabled(true);
+        edt25.setEnabled(true);
+
+        edt26.setEnabled(true);
+        edt27.setEnabled(true);
+        edt28.setEnabled(true);
+        edt29.setEnabled(true);
+        edt30.setEnabled(true);
+    }
+
+
+    //TODO: FIX THIS CODE
+    private void makeGameStop(){
+        edt1.setEnabled(false);
+        edt2.setEnabled(false);
+        edt3.setEnabled(false);
+        edt4.setEnabled(false);
+        edt5.setEnabled(false);
+
+
+        edt6.setEnabled(false);
+        edt7.setEnabled(false);
+        edt8.setEnabled(false);
+        edt9.setEnabled(false);
+        edt10.setEnabled(false);
+
+        edt11.setEnabled(false);
+        edt12.setEnabled(false);
+        edt13.setEnabled(false);
+        edt14.setEnabled(false);
+        edt15.setEnabled(false);
+
+        edt16.setEnabled(false);
+        edt17.setEnabled(false);
+        edt18.setEnabled(false);
+        edt19.setEnabled(false);
+        edt20.setEnabled(false);
+
+        edt21.setEnabled(false);
+        edt22.setEnabled(false);
+        edt23.setEnabled(false);
+        edt24.setEnabled(false);
+        edt25.setEnabled(false);
+
+        edt26.setEnabled(false);
+        edt27.setEnabled(false);
+        edt28.setEnabled(false);
+        edt29.setEnabled(false);
+        edt30.setEnabled(false);
+    }
+
+    public String randomWord(ArrayList list){
+        int rand_num;
+        String word = "hello";
+        if (wordList.size() != 0){
+            rand_num = rand.nextInt(list.size());
+            return list.get(rand_num).toString();
+        }
+        return word;
+    }
+
+
+
+
 }
