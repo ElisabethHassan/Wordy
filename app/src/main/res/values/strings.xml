@@ -2,6 +2,7 @@
     <string name="app_name">Wordy</string>
     <string name="restart">Restart</string>
     <string name="clear">Clear</string>
+    <string name="clear_database">Clear Database</string>
     <string name="enter">Enter</string>
     <string name="add_word">Add Word</string>
     <string name="headline">Add a Word!</string>

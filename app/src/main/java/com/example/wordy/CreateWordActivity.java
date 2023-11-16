@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CreateWordActivity extends AppCompatActivity {
-    Button back, save;
+    Button back, save, clear;
     String wordStr = "world";
     EditText word;
     TextView heading;
@@ -34,16 +36,19 @@ public class CreateWordActivity extends AppCompatActivity {
     DatabaseReference reference = db.getReference("words");
     ArrayList<String> wordList = new ArrayList<>();
     Random rand = new Random();
-    String target = "world";
 
 
+    View.OnClickListener clearListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            clearDatabase();
+        }
+    };
 
     View.OnClickListener backListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(CreateWordActivity.this, MainActivity.class );
-//            intent.putExtra("word", randomWord(wordList));
-//            intent.putExtra("word", wordList);
             startActivity(intent);
         }
     };
@@ -64,11 +69,25 @@ public class CreateWordActivity extends AppCompatActivity {
                 }
 
                 if(isAlphabetical == true){
-                    //TODO: MAKE SURE DUPLICATES AREN'T ADDED
+                    //handles duplicates
                     if (!wordStr.isEmpty()) {
-                        String key = reference.push().getKey();
-                        reference.child(key).setValue(wordStr);
-                        Toast.makeText(getApplicationContext(), "Word added successful", Toast.LENGTH_LONG).show();
+                        reference.orderByValue().equalTo(wordStr).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(!snapshot.exists()){
+                                    String key = reference.push().getKey();
+                                    reference.child(key).setValue(wordStr);
+                                    Toast.makeText(getApplicationContext(), "Word added successful", Toast.LENGTH_LONG).show();
+                                    word.setText("");
+                                } else Toast.makeText(getApplicationContext(), "This word already exists", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }
                 }
             } else {
@@ -85,38 +104,28 @@ public class CreateWordActivity extends AppCompatActivity {
 
         save = findViewById(R.id.save_button_id);
         back = findViewById(R.id.backButton_id);
+        clear = findViewById(R.id.clear_button);
         word = findViewById(R.id.wordEt_id);
         heading = findViewById(R.id.heading_id);
 
         back.setOnClickListener(backListener);
         save.setOnClickListener(saveListener);
+        clear.setOnClickListener(clearListener);
 
-
-//        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-//                    String word = dataSnapshot.getValue(String.class);
-//                    wordList.add(word);
-//                }
-//                target = randomWord(wordList);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
 
-    public String randomWord(ArrayList<String> list){
-        int rand_num;
-        if (list.size() != 0){
-            rand_num = rand.nextInt(list.size());
-            return list.get(rand_num).toUpperCase();
-        }
-        return wordStr;
+    public void clearDatabase(){
+        reference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getApplicationContext(), "Database cleared successfully", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Failed to clear database", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

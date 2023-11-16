@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    String word;
+    String word = "world";
     ArrayList<String> wordList = new ArrayList<>();
 //    String target = "world";
     Button addWordButton, restartButton, clearButton, enterButton;
