@@ -25,14 +25,16 @@ import java.util.Random;
 
 public class CreateWordActivity extends AppCompatActivity {
     Button back, save;
+    String wordStr = "world";
     EditText word;
     TextView heading;
     boolean isAlphabetical = true;
     boolean exists = false;
-    FirebaseDatabase db;
-    DatabaseReference reference;
+    FirebaseDatabase db  = FirebaseDatabase.getInstance();
+    DatabaseReference reference = db.getReference("words");
     ArrayList<String> wordList = new ArrayList<>();
     Random rand = new Random();
+    String target = "world";
 
 
 
@@ -41,6 +43,7 @@ public class CreateWordActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(CreateWordActivity.this, MainActivity.class );
 //            intent.putExtra("word", randomWord(wordList));
+//            intent.putExtra("word", wordList);
             startActivity(intent);
         }
     };
@@ -48,8 +51,10 @@ public class CreateWordActivity extends AppCompatActivity {
     View.OnClickListener saveListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             String wordStr = word.getText().toString();
             if(wordStr.length() == 5){
+
                 for (int i = 0; i < word.getText().toString().length(); i++){
                     char c = word.getText().toString().charAt(i);
                     if (!Character.isLetter(c)) {
@@ -60,29 +65,18 @@ public class CreateWordActivity extends AppCompatActivity {
 
                 if(isAlphabetical == true){
                     //TODO: MAKE SURE DUPLICATES AREN'T ADDED
-                    reference.setValue(wordStr);
-                    Toast.makeText(getApplicationContext(), "Word added successful", Toast.LENGTH_LONG).show();
-
+                    if (!wordStr.isEmpty()) {
+                        String key = reference.push().getKey();
+                        reference.child(key).setValue(wordStr);
+                        Toast.makeText(getApplicationContext(), "Word added successful", Toast.LENGTH_LONG).show();
+                    }
                 }
             } else {
-                heading.setBackgroundColor((int) Color.pack(102,0,153));
+                heading.setTextColor((int) Color.parseColor("#ee70ff"));
                 Toast.makeText(getApplicationContext(), "Word must be 5 letters", Toast.LENGTH_LONG).show();
             }
         }
     };
-
-
-//    public String randomWord(ArrayList list){
-//        int rand_num;
-//        String word = "hello";
-//        if (wordList.size() != 0){
-//            rand_num = rand.nextInt(list.size());
-//            return list.get(rand_num).toString();
-//        }
-//        return word;
-//    }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,31 +91,32 @@ public class CreateWordActivity extends AppCompatActivity {
         back.setOnClickListener(backListener);
         save.setOnClickListener(saveListener);
 
-        db = FirebaseDatabase.getInstance();
-        reference = db.getReference("words");
-        //words in the database to begin with
-        reference.setValue("games");
-        reference.setValue("honey");
-        reference.setValue("ocean");
-        wordList.add("ocean");
-        wordList.add("games");
-        wordList.add("honey");
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String word = dataSnapshot.getValue(String.class);
-                    wordList.add(word);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
+//        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+//                    String word = dataSnapshot.getValue(String.class);
+//                    wordList.add(word);
+//                }
+//                target = randomWord(wordList);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
+
+    public String randomWord(ArrayList<String> list){
+        int rand_num;
+        if (list.size() != 0){
+            rand_num = rand.nextInt(list.size());
+            return list.get(rand_num).toUpperCase();
+        }
+        return wordStr;
+    }
+
 }

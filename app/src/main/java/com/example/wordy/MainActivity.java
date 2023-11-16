@@ -25,17 +25,19 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     String word;
+    ArrayList<String> wordList = new ArrayList<>();
+//    String target = "world";
     Button addWordButton, restartButton, clearButton, enterButton;
+    FirebaseDatabase db  = FirebaseDatabase.getInstance();
+    DatabaseReference reference = db.getReference("words");
     EditText edt1, edt2, edt3, edt4, edt5;
     EditText edt6, edt7, edt8, edt9, edt10;
     EditText edt11, edt12, edt13, edt14, edt15;
     EditText edt16, edt17, edt18, edt19, edt20;
     EditText edt21, edt22, edt23, edt24, edt25;
     EditText edt26, edt27, edt28, edt29, edt30;
-    ArrayList<String> wordList = new ArrayList<>();
     Random rand = new Random();
-    FirebaseDatabase db;
-    DatabaseReference reference;
+
 
     View.OnClickListener restartListener = new View.OnClickListener() {
         @Override
@@ -44,13 +46,15 @@ public class MainActivity extends AppCompatActivity {
             restart();
             makeGameStart();
             onRestart();
+            getWord();
         }
     };
 
     View.OnClickListener clearListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            clear();
+            clear() ;
+            restart();
         }
     };
 
@@ -66,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener enterListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             if (edt5.length() == 1)  validateRow(edt1, edt2, edt3, edt4, edt5);
             if (edt10.length() == 1) validateRow(edt6, edt7, edt8, edt9, edt10);
             if (edt15.length() == 1) validateRow(edt11, edt12, edt13, edt14, edt15);
@@ -81,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        word = randomWord(wordList).toUpperCase();
+        startGame();
+
+        Intent intent = getIntent();
+//        word = intent.getStringExtra("word");
         addWordButton = findViewById(R.id.button_addWord);
         restartButton = findViewById(R.id.button_restart);
         clearButton = findViewById(R.id.button_clear);
@@ -122,23 +128,37 @@ public class MainActivity extends AppCompatActivity {
         edt29 = findViewById(R.id.et_29);
         edt30 = findViewById(R.id.et_30);
 
-        db = FirebaseDatabase.getInstance();
-        reference = db.getReference("words");
-        //words in the database to begin with
-        reference.setValue("games");
-        reference.setValue("honey");
-        reference.setValue("ocean");
-        wordList.add("ocean");
-        wordList.add("games");
-        wordList.add("honey");
+//        db = FirebaseDatabase.getInstance();
+//        reference = db.getReference("words");
+//        reference.setValue(w.getWord());
+//        reference.setValue(w2.getWord());
+//        reference.setValue(w3.getWord());
 
-        reference.addValueEventListener(new ValueEventListener() {
+
+
+        Toast.makeText(this, "Connection was successful", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), word, Toast.LENGTH_LONG).show();
+
+        enterButton.setOnClickListener(enterListener);
+        clearButton.setOnClickListener(clearListener);
+        restartButton.setOnClickListener(restartListener);
+        addWordButton.setOnClickListener(addWordListener);
+        getWord();
+
+
+
+    }
+
+
+    public void getWord(){
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     String word = dataSnapshot.getValue(String.class);
                     wordList.add(word);
                 }
+                word = randomWord(wordList);
             }
 
             @Override
@@ -146,23 +166,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        addWordButton.setOnClickListener(addWordListener);
-        Toast.makeText(this, "Connection was successful", Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), word, Toast.LENGTH_LONG).show();
-        enterButton.setOnClickListener(enterListener);
-        clearButton.setOnClickListener(clearListener);
-        restartButton.setOnClickListener(restartListener);
-
-
     }
-
-
 
     public void validateRow(EditText et1,EditText et2, EditText et3, EditText et4, EditText et5){
 //        Intent intent = getIntent();
 //        word = intent.getStringExtra("word").toString().toUpperCase();
-
 
         char editText1 = et1.getText().toString().toUpperCase().charAt(0);
         char editText2 = et2.getText().toString().toUpperCase().charAt(0);
@@ -217,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         //checks if none of the letters are in the word
         if (editText1 != w1 && editText1 != w2 && editText1 != w3 && editText1 != w4 && editText1 != w5) {
             et1.setBackgroundColor(Color.parseColor("#797c7e")); // if so, changes color to grey
@@ -248,6 +255,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void startGame(){
+
+    }
 
     public void clear(){
         edt1.setText("");
@@ -296,34 +306,34 @@ public class MainActivity extends AppCompatActivity {
 
 
         edt6.setBackground(getDrawable(R.drawable.border));
-        edt7.setText("");
-        edt8.setText("");
-        edt9.setText("");
-        edt10.setText("");
+        edt7.setBackground(getDrawable(R.drawable.border));
+        edt8.setBackground(getDrawable(R.drawable.border));
+        edt9.setBackground(getDrawable(R.drawable.border));
+        edt10.setBackground(getDrawable(R.drawable.border));
 
-        edt11.setText("");
-        edt12.setText("");
-        edt13.setText("");
-        edt14.setText("");
-        edt15.setText("");
+        edt11.setBackground(getDrawable(R.drawable.border));
+        edt12.setBackground(getDrawable(R.drawable.border));
+        edt13.setBackground(getDrawable(R.drawable.border));
+        edt14.setBackground(getDrawable(R.drawable.border));
+        edt15.setBackground(getDrawable(R.drawable.border));
 
-        edt16.setText("");
-        edt17.setText("");
-        edt18.setText("");
-        edt19.setText("");
-        edt20.setText("");
+        edt16.setBackground(getDrawable(R.drawable.border));
+        edt17.setBackground(getDrawable(R.drawable.border));
+        edt18.setBackground(getDrawable(R.drawable.border));
+        edt19.setBackground(getDrawable(R.drawable.border));
+        edt20.setBackground(getDrawable(R.drawable.border));
 
-        edt21.setText("");
-        edt22.setText("");
-        edt23.setText("");
-        edt24.setText("");
-        edt25.setText("");
+        edt21.setBackground(getDrawable(R.drawable.border));
+        edt22.setBackground(getDrawable(R.drawable.border));
+        edt23.setBackground(getDrawable(R.drawable.border));
+        edt24.setBackground(getDrawable(R.drawable.border));
+        edt25.setBackground(getDrawable(R.drawable.border));
 
-        edt26.setText("");
-        edt27.setText("");
-        edt28.setText("");
-        edt29.setText("");
-        edt30.setText("");
+        edt26.setBackground(getDrawable(R.drawable.border));
+        edt27.setBackground(getDrawable(R.drawable.border));
+        edt28.setBackground(getDrawable(R.drawable.border));
+        edt29.setBackground(getDrawable(R.drawable.border));
+        edt30.setBackground(getDrawable(R.drawable.border));
     }
 
     //TODO: FIX THIS CODE
@@ -407,15 +417,15 @@ public class MainActivity extends AppCompatActivity {
         edt30.setEnabled(false);
     }
 
-    public String randomWord(ArrayList list){
+    public String randomWord(ArrayList<String> list){
         int rand_num;
-        String word = "hello";
-        if (wordList.size() != 0){
+        if (list.size() != 0){
             rand_num = rand.nextInt(list.size());
-            return list.get(rand_num).toString();
+            return list.get(rand_num).toUpperCase();
         }
-        return word;
+        return "world";
     }
+
 
 
 
