@@ -17,7 +17,7 @@ To run the program, please follow these steps:
 1. **Clone the repository in Android Development:**
 
    ```bash
-   git clone https://github.com/ElisabethHassan/Ticker_WatchList
+   git clone https://github.com/ElisabethHassan/Wordy
    ```
 
 2. **Run Virtual Device Emulator**
